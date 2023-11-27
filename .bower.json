@@ -1,0 +1,32 @@
+{
+  "name": "RootMetrics-Chart-Library",
+  "authors": [
+    "Sean Thompson <sean.thompson@rootmetrics.com>"
+  ],
+  "main": "index.html",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "src/vendor",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "d3": "~3.5.5",
+    "jquery": "~2.1.4",
+    "jquery.inview2": "https://github.com/mmmeff/jquery.inview2.git"
+  },
+  "_release": "5b6d0b4c12",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "5b6d0b4c1203bdfdcb824eb618ddbb6a03987483"
+  },
+  "_source": "git@gitlab.prod.rm:design/charting-library.git",
+  "_target": "*",
+  "_originalSource": "git@gitlab.prod.rm:design/charting-library.git",
+  "_direct": true
+}

@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>RootMetrics D3 Charting Library</title>
+
+    <link href="dist/css/rm-chart-library.min.css" rel="stylesheet">
+   
+</head>
+<body>
+    <div class="container">        
+        <div id="scatterPlot"></div>
+        <div id="donutChart"></div>
+        <div id="doubleBar"></div>
+        <div id="barGraph"></div>
+        <button class="btn" id="sendNewData">Update Data Set</button>
+        <div id="hrDoubleBarGraph"></div>
+        <div id="hrBarGraph"></div>
+        
+        <h2>Bar Chart with Threshold</h2>
+        <div id="hrBarGraphThreshold"></div>
+    </div>
+    <script src="src/vendor/jquery/dist/jquery.min.js"></script>
+     <script src="src/vendor/d3/d3.min.js"></script>
+    <script src="dist/js/rm-chart-library.min.js"></script>
+    
+    
+    <script type="text/javascript">
+	    var newDataSet = [
+		    {
+			    lower: 41.12,
+			    name: "AT&T",
+			    rank: 1,
+			    score: 63.423,
+			    upper: 70.123
+		    },
+		    {
+			    lower: 81.12,
+			    name: "Verizon",
+			    rank: 2,
+			    score: 92.423,
+			    upper: 97.123
+		    },
+		    {
+			    lower: 83.12,
+			    name: "T-Mobile",
+			    rank: 3,
+			    score: 87.423,
+			    upper: 90.123
+		    },
+		    {
+			    lower: 89.12,
+			    name: "Sprint",
+			    rank: 4,
+			    score: 90.423,
+			    upper: 92.123
+		    }		    
+	    ];
+	    
+	    
+	    var dataSet = [
+		    {
+			    lower: 51.12,
+			    name: "AT&T",
+			    rank: 1,
+			    score: 93.423,
+			    upper: 100.123
+		    },
+		    {
+			    lower: 91.12,
+			    name: "Verizon",
+			    rank: 2,
+			    score: 92.423,
+			    upper: 97.123
+		    },
+		    {
+			    lower: 90.12,
+			    name: "Sprint",
+			    rank: 3,
+			    score: 91.423,
+			    upper: 95.123
+		    },
+		    {
+			    lower: 85.12,
+			    name: "T-Mobile",
+			    rank: 4,
+			    score: 89.423,
+			    upper: 93.123
+		    },
+		    {
+			    lower: 70.0,
+			    name: "Wi-Fi",
+			    rank: 5,
+			    score: 74.0,
+			    upper: 80.5
+		    }
+	    ];
+	    
+	    
+	    var scatterData = [
+		    {
+			    x: 90,
+			    y: 75,
+			    name: 'Seattle, WA'
+		    },
+		    {
+			   x: 80,
+			    y: 85,
+			    name: 'Spokane, WA' 
+		    },
+		    {
+			   x: 65,
+			    y: 90,
+			    name: 'Portland, OR' 
+		    }
+	    ];
+	    
+	    var donutData = {
+	    		total: 100,
+	    		values: 50,
+	    		carrier: "Verizon"
+	    }	    
+	    
+		var doubleChartData = [
+			[  
+	               {  
+	                  name:"AT&T",
+	                  score:1.78069406798489,
+	                  lower: 0.6891300388673,
+	                  upper: 5.84175793915168
+	               },
+	               {  
+	                  name:"Sprint",
+	                  score:0.64960995113283,
+	                  lower: 0.553322892336557,
+	                  upper: 0.801963233665559
+	               },
+	               {  
+	                  name:"T-Mobile",
+	                  score:1.14396986817326,
+	                  lower: 0.873619195734281,
+	                  upper: 1.50135984890568
+	               },
+	               {  
+	                  name:"Verizon",
+	                  score:0.716538572538573,
+	                  lower: 0.564386580759831,
+	                  upper: 0.902739835592091
+	               },
+	               {  
+	                  name:"Wi-Fi",
+	                  score:3.255240814440137,
+	                  lower: 3.208466763909148,
+	                  upper: 3.298036709134096
+	               }
+	        ],
+	        [  
+	               {  
+	                  name:"AT&T",
+	                  score:1.07590526309178,
+	                  lower: 0.85669184490207,
+	                  upper: 1.25899594356711
+	               },
+	               {  
+	                  name:"Sprint",
+	                  score:0.715810176837911,
+	                  lower: 0.623891366551038,
+	                  upper: 0.777899853707363
+	               },
+	               {  
+	                  name:"T-Mobile",
+	                  score:2.56676765188834,
+	                  lower: 2.30274306158957,
+	                  upper: 2.89308018965162
+	               },
+	               {  
+	                  name:"Verizon",
+	                  score:0.255240814440137,
+	                  lower: 0.208466763909148,
+	                  upper: 0.298036709134096
+	               },
+	               {  
+	                  name:"Wi-Fi",
+	                  score:0.255240814440137,
+	                  lower: 0.208466763909148,
+	                  upper: 0.298036709134096
+	               }
+	        ]
+        ];
+        
+        var hrBarData = [
+	        [
+		       {  
+                  name:"AT&T",
+                  ties: 109,
+                  wins: 4
+               }, 
+               {  
+                  name:"Sprint",
+                  ties: 17,
+                  wins: 0
+               },
+               {  
+                  name:"T-Mobile",
+                  ties: 34,
+                  wins: 0
+               }, 
+               {  
+                  name:"Verizon",
+                  ties: 109,
+                  wins: 10
+               }, 
+	        ],
+	        [
+		       {  
+                  name:"AT&T",
+                  ties: 83,
+                  wins: 5
+               }, 
+               {  
+                  name:"Sprint",
+                  ties: 15,
+                  wins: 1
+               },
+               {  
+                  name:"T-Mobile",
+                  ties: 35,
+                  wins: 0
+               }, 
+               {  
+                  name:"Verizon",
+                  ties: 94,
+                  wins: 20
+               }, 
+	        ]
+        ];
+
+			    
+	    var dataSet2 = [
+		    {
+			    lower: 51.12,
+			    name: "AT&T",
+			    rank: 1,
+			    score: 93.423,
+			    upper: 100.123
+		    },
+		    {
+			    lower: 91.12,
+			    name: "Verizon",
+			    rank: 2,
+			    score: 92.423,
+			    upper: 97.123
+		    },
+		    {
+			    lower: 90.12,
+			    name: "Sprint",
+			    rank: 3,
+			    score: 91.423,
+			    upper: 95.123
+		    },
+		    {
+			    lower: 85.12,
+			    name: "T-Mobile",
+			    rank: 4,
+			    score: 89.423,
+			    upper: 93.123
+		    },
+		    {
+			    lower: 0,
+			    name: "Wi-Fi",
+			    rank: 4,
+			    score: 0,
+			    upper: 0
+		    }
+	    ];
+
+		var toggle = false;
+	    	    
+	    var barChart = rmBarChart().dataset(dataSet).width(600).height(300).ranks(true);	    
+	    var chart = d3.select('#barGraph').call(barChart);		
+	    
+	    var scatterPlot = rmScatterPlot().dataset(scatterData).width(500).height(500);	  
+	    var scatter = d3.select('#scatterPlot').call(scatterPlot);
+	    
+	    var donutChart = rmDonutChart().dataset(donutData).height(300).width(300);
+	    var donut = d3.select("#donutChart").call(donutChart);
+	    
+	    var doubleBarChart = rmDoubleBarChart().dataset(doubleChartData).height(500).width(700);
+	    var doubleChart = d3.select("#doubleBar").call(doubleBarChart);
+	    
+	    var hrDoubleBarChart = rmHrDoubleBarChart().dataset(hrBarData).width($("#hrDoubleBarGraph").width());
+	    var hrDoubleChart = d3.select("#hrDoubleBarGraph").call(hrDoubleBarChart);
+	   
+	    var hrBarChart = rmHrBarChart().dataset(dataSet).width($("#hrBarGraph").width()).margin({ right: 30, left: 30, top: 30, bottom: 30 }).ranks(true).addXAxis(true).threshold(true);
+	    var hrChart = d3.select("#hrBarGraph").call(hrBarChart);
+	    
+	    var hrBarChart2 = rmHrBarChart().dataset(dataSet2).width($("#hrBarGraphThreshold").width()).margin({ right: 30, left: 30, top: 30, bottom: 30 }).ranks(true).animateOnScroll(false).threshold(true);
+	    var hrChart2 = d3.select("#hrBarGraphThreshold").call(hrBarChart2);
+	    
+	    $('#sendNewData').on('click', function() {
+		    toggle = !toggle;
+			barChart.update(toggle ? newDataSet : dataSet);
+	    });
+					  
+	</script>
+</body>
+</html>
